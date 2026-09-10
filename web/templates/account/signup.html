@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load account socialaccount %}
+
 {% block extra_head %}
   {{ block.super }}
   <style>
@@ -249,6 +251,27 @@
           </a>
         </p>
       </form>
+
+      <div class="mt-6">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="bg-white dark:bg-gray-800 px-2 text-gray-500 dark:text-gray-400">
+              Or continue with
+            </span>
+          </div>
+        </div>
+
+        <a href="{% provider_login_url 'google' %}"
+          class="mt-6 flex w-full items-center justify-center rounded-md bg-white dark:bg-gray-700 px-4 py-2 text-base font-semibold leading-6 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <i class="fab fa-google mr-2 text-sm text-red-500" aria-hidden="true"></i>
+          Continue with Google
+        </a>
+      </div>
+
+
     </div>
   </div>
 {% endblock content %}
