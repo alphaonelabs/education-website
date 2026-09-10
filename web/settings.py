@@ -142,6 +142,8 @@ INSTALLED_APPS = [
     "channels",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     "captcha",
     "markdownx",
     "web",
