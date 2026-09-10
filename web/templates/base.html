@@ -855,33 +855,70 @@
         </div>
       </div>
     </header>
-    {% if messages %}
-      <div class="fixed left-1/2 transform -translate-x-1/2 top-20 z-50 w-full max-w-lg space-y-2">
-        {% for message in messages %}
-          <div class="flex items-center p-4 rounded-lg shadow-lg {% if message.tags == 'error' %}bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200{% elif message.tags == 'success' %}bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200{% elif message.tags == 'warning' %}bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200{% else %}bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200{% endif %}">
-            <div class="mr-3">
-              {% if message.tags == 'error' %}
-                <i class="fas fa-exclamation-circle"></i>
-              {% elif message.tags == 'success' %}
-                <i class="fas fa-check-circle"></i>
-              {% elif message.tags == 'warning' %}
-                <i class="fas fa-exclamation-triangle"></i>
-              {% else %}
-                <i class="fas fa-info-circle"></i>
-              {% endif %}
-            </div>
-            <p class="flex-1">{{ message }}</p>
-            <button type="button" class="ml-auto" onclick="this.parentElement.remove()">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        {% endfor %}
+
+
+  
+{% if messages %}
+  <div class="fixed left-1/2 transform -translate-x-1/2 top-20 z-50 w-full max-w-lg space-y-2">
+    {% for message in messages %}
+      <div class="django-message flex items-center p-4 rounded-lg shadow-lg transition-all duration-500 ease-in-out {% if message.tags == 'error' %}bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200{% elif message.tags == 'success' %}bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200{% elif message.tags == 'warning' %}bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200{% else %}bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200{% endif %}">
+        
+        <div class="mr-3">
+          {% if message.tags == 'error' %}
+            <i class="fas fa-exclamation-circle"></i>
+          {% elif message.tags == 'success' %}
+            <i class="fas fa-check-circle"></i>
+          {% elif message.tags == 'warning' %}
+            <i class="fas fa-exclamation-triangle"></i>
+          {% else %}
+            <i class="fas fa-info-circle"></i>
+          {% endif %}
+        </div>
+
+        <p class="flex-1">{{ message }}</p>
+
+        <button type="button" class="ml-auto" onclick="removeMessage(this.parentElement)">
+          <i class="fas fa-times"></i>
+        </button>
+
       </div>
-    {% endif %}
-    {% block extra_body %}
-      {% block content %}
-      {% endblock content %}
-    {% endblock extra_body %}
+    {% endfor %}
+  </div>
+{% endif %}
+
+<style>
+  .django-message {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .django-message.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+</style>
+
+<script>
+  function removeMessage(message) {
+    message.classList.add('hide');
+
+    setTimeout(function () {
+      message.remove();
+    }, 500);
+  }
+
+  setTimeout(function () {
+    document.querySelectorAll('.django-message').forEach(function (message) {
+      removeMessage(message);
+    });
+  }, 3000);
+</script>
+
+{% block extra_body %}
+  {% block content %}
+  {% endblock content %}
+{% endblock extra_body %}
+
     <!-- FOOTER -->
     <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-auto">
       <div class="max-w-[90rem] mx-auto px-4 md:px-6 py-12">
